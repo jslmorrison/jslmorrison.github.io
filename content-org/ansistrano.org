@@ -1,0 +1,20 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Ansistrano :@devops:@ansible:ansible:
+:PROPERTIES:
+:EXPORT_FILE_NAME: ansistrano
+:EXPORT_DATE: 2023-05-21
+:END:
+An excellent tool for deploying and rolling back project deployments.
+
+#+hugo: more
+#+begin_quote
+Ansistrano is built on top of Ansible to leverage all its power to deploy applications.
+#+end_quote
+
+This can be installed in host via =ansible-galaxy= as follows:
+#+begin_src bash
+ansible-galaxy install ansistrano.deploy ansistrano.rollback
+#+end_src

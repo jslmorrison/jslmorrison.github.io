@@ -1,0 +1,19 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Hello World
+:PROPERTIES:
+:EXPORT_FILE_NAME: hello-world
+:EXPORT_DATE: 2023-05-18
+:END:
+Just for the heck of it I have started adding some content to these pages, mainly as a reference for myself as I have a tendency to forget stuff a lot quicker than time taken to learn it, unless I keep notes like this.
+
+#+hugo: more
+I will be writing the posts in [[https://www.gnu.org/software/emacs/][Emacs]] [[https://orgmode.org/][org mode]] and exporting them via [[https://ox-hugo.scripter.co/][ox-hugo]] to Hugo compatible markdown files in order that I can use the excellent [[https://gohugo.io/][Hugo]] as the static site generator.
+
+I tested other SSG's, mainly [[https://jekyllrb.com/][Jekyll]], but Hugo suited me better as its easier to setup and configure and allows me to write notes in org-mode and easily export them to compatible markdown - automatically even, if desired.
+
+Initially I'm intending to post content about my experience with using [[https://silverblue.fedoraproject.org/][Fedora Silverblue]] as my linux distro of choice and what is required to have a solid working local development environment.
+
+Hugo also integrates well with [[https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#types-of-github-pages-sites][GitHub pages]] which i will use to host the generated site.
