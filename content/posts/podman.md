@@ -6,7 +6,7 @@ categories = ["devops", "podman"]
 draft = false
 +++
 
-Podman is installed out of the box on Fedora Silverblue. When I need to start new projects, podman coupled with ansible are the tools I use to configure them. Podman is a drop in replacement for Docker but I encountered a couple of issues. Read on to find out more.
+[Podman](https://podman.io/) is installed out of the box on Fedora Silverblue. When I need to start new projects, podman coupled with ansible are the tools I use to configure them. Podman is a drop in replacement for Docker but I encountered a couple of issues. Read on to find out more.
 
 <!--more-->
 

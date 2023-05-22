@@ -7,7 +7,7 @@
 :EXPORT_FILE_NAME: podman
 :EXPORT_DATE: 2023-05-21
 :END:
-Podman is installed out of the box on Fedora Silverblue. When I need to start new projects, podman coupled with ansible are the tools I use to configure them. Podman is a drop in replacement for Docker but I encountered a couple of issues. Read on to find out more.
+[[https://podman.io/][Podman]] is installed out of the box on Fedora Silverblue. When I need to start new projects, podman coupled with ansible are the tools I use to configure them. Podman is a drop in replacement for Docker but I encountered a couple of issues. Read on to find out more.
 
 #+hugo: more
 #+begin_quote
