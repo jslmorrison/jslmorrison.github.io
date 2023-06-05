@@ -1,0 +1,79 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Schedule tasks in systemd :@fedora_silverblue:fedora_silverblue:systemd:
+:PROPERTIES:
+:EXPORT_FILE_NAME: shedule-task-systemd
+:EXPORT_DATE: 2023-06-05
+:END:
+Given that =cron= is not installed by default on a Fedora Silverblue host, it can either be added as a layered package or you can use =systemd= which is available by default.
+
+#+hugo: more
+As I want to keep layered packages to bare minimum, I have chose to utilise =systemd= to configure any scheduled tasks I may need.
+
+Systemd requires minimum of 2 files to schedule task:
+- a service unit
+- and a timer unit
+- and optionally a script if command to run is not so simple
+
+Files should be placed in =~/.config/systemd/user= directory, which may not exist yet. If need be, create it with:
+#+begin_src bash
+mkdir -p ~/.config/systemd/user
+#+end_src
+
+As an example - I wanted to have the Traefik container that I [[file:traefik.org][setup previously]] as the proxy for my local development environment, to be started automatically.
+
+#+begin_src
+# schedule-traefik.service
+[Unit]
+Description=Run script to start Traefik container
+
+[Service]
+Type=simple
+ExecStart=%h/bin/schedule-traefik.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
+#+end_src
+
+#+begin_src
+# schedule-traefik.timer
+[Unit]
+Description=Schedule timer to start Traefik container
+
+[Timer]
+#Run 60 seconds after boot for the first time
+OnBootSec=60
+
+[Install]
+WantedBy=timers.target
+#+end_src
+
+#+begin_src bash
+# bin/schedule-traefik.sh
+#!/bin/sh
+cd $HOME/development/podman-traefik-dev-box/ && $HOME/.local/bin/ansible-playbook play.yaml
+#+end_src
+
+Once the /.service/ and /.timer/ unit files are in place, the service can be enabled with:
+#+begin_src bash
+systemctl --user enable schedule-traefik.service
+#+end_src
+
+and manually tested with:
+#+begin_src bash
+systemctl --user start schedule-traefik.service
+#+end_src
+
+Also check the output and that the container is running:
+#+begin_src bash
+journalctl --user -fxeu schedule-traefik.service
+#+end_src
+
+#+begin_src bash
+podman ps -a
+#+end_src
+
+Reboot and check again. Container should be up and running as expected.
