@@ -3,6 +3,7 @@ languageCode = 'en-gb'
 title = 'Personal tech notes'
 paginate = 5
 theme = 'terminal'
+googleAnalytics='G-GMFEY7M980'
 
 [params]
   # dir name of your main content (default is `content/posts`).
