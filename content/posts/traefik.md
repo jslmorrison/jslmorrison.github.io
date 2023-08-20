@@ -120,6 +120,6 @@ http:
         port: "443"
 ```
 
-<http:///project1-web> will be redirected to use https and the ssl certificate provided by Traefik or preferrably create your own using a tool like `mkcert` for example.
+<http://project1-web> will be redirected to use https and the ssl certificate provided by Traefik or preferrably create your own using a tool like `mkcert` for example.
 
 I'll write up more about using mkcert for this purpose in a later post.
