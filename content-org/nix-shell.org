@@ -20,7 +20,7 @@ As an example - I need to search local directories quickly for specific string:
 #+begin_src bash
 ag 'nix-shell' .
 #+end_src
-but i dont have the [[https://geoff.greer.fm/ag/][silver-searcher]] installed. Running the above will result in:
+but I don't have the [[https://geoff.greer.fm/ag/][silver-searcher]] installed. Running the above will result in:
 #+begin_src bash
 The program 'ag' is not in your PATH. You can make it available in an
 ephemeral shell by typing:
@@ -32,7 +32,7 @@ Exit the shell and the silver-searcher will be gone.
 ** Development environments
 As an alternative to setting up and running a containerised development environment using docker or podman etc.
 
-*** E.g. setting up and runnign a [[https://symfony.com/][Symfony]] project
+*** E.g. setting up and running a [[https://symfony.com/][Symfony]] project
 Given i have already installed the [[https://github.com/symfony-cli/symfony-cli][Symfony cli tool]]
 #+begin_src bash
 symfony check:requirements

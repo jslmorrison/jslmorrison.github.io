@@ -8,8 +8,8 @@
 :EXPORT_DATE: 2023-10-10
 :END:
 
-I've been reading a lot about [[https://nixos.org/][nixos]] lately and wanted to learn more so i'm now using it as my daily driver to hopefully learn more get a better understanding of it.
-Not sure if i'll keep it permanently or go back to [[https://fedoraproject.org/silverblue/][Fedora Silverblue]], but nothing ventured nothing gained.
+I've been reading a lot about [[https://nixos.org/][nixos]] lately and wanted to learn more so I'd now using it as my daily driver to hopefully learn more get a better understanding of it.
+Not sure if I'll keep it permanently or go back to [[https://fedoraproject.org/silverblue/][Fedora Silverblue]], but nothing ventured nothing gained.
 #+begin_quote
 NixOS, a Linux distribution based on the purely functional package management system Nix, that is composed using modules and packages defined in the Nixpkgs project.
 #+end_quote
@@ -18,7 +18,7 @@ NixOS, a Linux distribution based on the purely functional package management sy
 
 ** Installation
 Installation was very straight forward, so nothing untoward to mention here.
-** Configuation
+** Configuration
 #+begin_quote
 Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems.
 #+end_quote
