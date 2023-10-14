@@ -23,7 +23,7 @@ As an example - I need to search local directories quickly for specific string:
 ag 'nix-shell' .
 ```
 
-but i dont have the [silver-searcher](https://geoff.greer.fm/ag/) installed. Running the above will result in:
+but I don't have the [silver-searcher](https://geoff.greer.fm/ag/) installed. Running the above will result in:
 
 ```bash
 The program 'ag' is not in your PATH. You can make it available in an
@@ -40,7 +40,7 @@ Exit the shell and the silver-searcher will be gone.
 As an alternative to setting up and running a containerised development environment using docker or podman etc.
 
 
-### E.g. setting up and runnign a [Symfony](https://symfony.com/) project {#e-dot-g-dot-setting-up-and-runnign-a-symfony-project}
+### E.g. setting up and running a [Symfony](https://symfony.com/) project {#e-dot-g-dot-setting-up-and-running-a-symfony-project}
 
 Given i have already installed the [Symfony cli tool](https://github.com/symfony-cli/symfony-cli)
 
@@ -101,7 +101,7 @@ add the following content:
 
 and exit the temporary shell.
 
-You should be back in a normal terminal shell (check your prompt differences between the two). If you try and run any of the symfony-cli commands then you'll get the 'no PHP binaries detected' error again. Not to worry:
+Should be back in a normal terminal shell (check prompt differences between the two). Try and run any of the symfony-cli commands then you'll get the 'no PHP binaries detected' error again. Not to worry:
 
 ```bash
 nix-shell

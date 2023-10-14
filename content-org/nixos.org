@@ -17,7 +17,7 @@ NixOS, a Linux distribution based on the purely functional package management sy
 #+hugo: more
 
 ** Installation
-Installation was very straight forward, so nothing untoward to mention here.
+Graphical installer was very straight forward, so nothing untoward to mention here.
 ** Configuration
 #+begin_quote
 Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems.
