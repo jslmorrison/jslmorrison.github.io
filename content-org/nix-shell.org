@@ -1,0 +1,93 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Nix-shell :@nixos:nixos:nix:
+:PROPERTIES:
+:EXPORT_FILE_NAME: nix-shell
+:EXPORT_DATE: 2023-10-11
+:END:
+According to [[https://nixos.org/manual/nix/stable/command-ref/nix-shell][the manual]]:
+#+begin_quote
+The command nix-shell will build the dependencies of the specified derivation, but not the derivation itself. It will then start an interactive shell in which all environment variables defined by the derivation path have been set to their corresponding values, and the script $stdenv/setup has been sourced. This is useful for reproducing the environment of a derivation for development.
+#+end_quote
+
+How does that help me?
+#+hugo: more
+** Ephemeral shells
+As an example - I need to search local directories quickly for specific string:
+
+#+begin_src bash
+ag 'nix-shell' .
+#+end_src
+but i dont have the [[https://geoff.greer.fm/ag/][silver-searcher]] installed. Running the above will result in:
+#+begin_src bash
+The program 'ag' is not in your PATH. You can make it available in an
+ephemeral shell by typing:
+  nix-shell -p silver-searcher
+#+end_src
+Using that suggestion, once it completes, I will be dropped into a temporary shell where i can repeat the search and it will work as expected.
+Exit the shell and the silver-searcher will be gone.
+
+** Development environments
+As an alternative to setting up and running a containerised development environment using docker or podman etc.
+
+*** E.g. setting up and runnign a [[https://symfony.com/][Symfony]] project
+Given i have already installed the [[https://github.com/symfony-cli/symfony-cli][Symfony cli tool]]
+#+begin_src bash
+symfony check:requirements
+#+end_src
+will result in
+#+begin_src bash
+no PHP binaries detected
+#+end_src
+create an ephemeral shell that has php binary:
+#+begin_src bash
+nix-shell -p php
+#+end_src
+check it is available:
+#+begin_src bash
+php -v
+
+PHP 8.1.24 (cli) (built: Sep 26 2023 23:43:49) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.24, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.24, Copyright (c), by Zend Technologies
+#+end_src
+create new symfony project:
+#+begin_src bash
+symfony new symfony-sandbox
+#+end_src
+#+begin_src bash
+[OK] Your project is now ready in /home/john/development/web/symfony-sandbox
+#+end_src
+In order to have the changes persist after exiting this nix-shell you need to write requirements to file
+#+begin_src bash
+touch shell.nix
+#+end_src
+add the following content:
+#+begin_src nix
+{ pkgs ? import <nixpkgs> {} }:
+  pkgs.mkShell {
+    # nativeBuildInputs is usually what you want -- tools you need to run
+    nativeBuildInputs = with pkgs.buildPackages; [
+      php81
+    ];
+}
+#+end_src
+and exit the temporary shell.
+
+You should be back in a normal terminal shell (check your prompt differences between the two). If you try and run any of the symfony-cli commands then you'll get the 'no PHP binaries detected' error again. Not to worry:
+#+begin_src bash
+nix-shell
+#+end_src
+then
+#+begin_src bash
+symfony server:start
+#+end_src
+#+begin_src
+ [OK] Web server listening
+      The Web server is using PHP FPM 8.1.24
+      http://127.0.0.1:8000
+#+end_src
+[[https://nixos.wiki/wiki/Development_environment_with_nix-shell][See here]] for more info.

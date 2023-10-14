@@ -1,0 +1,42 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Nixos :@nixos:nixos:
+:PROPERTIES:
+:EXPORT_FILE_NAME: nixos
+:EXPORT_DATE: 2023-10-10
+:END:
+
+I've been reading a lot about [[https://nixos.org/][nixos]] lately and wanted to learn more so i'm now using it as my daily driver to hopefully learn more get a better understanding of it.
+Not sure if i'll keep it permanently or go back to [[https://fedoraproject.org/silverblue/][Fedora Silverblue]], but nothing ventured nothing gained.
+#+begin_quote
+NixOS, a Linux distribution based on the purely functional package management system Nix, that is composed using modules and packages defined in the Nixpkgs project.
+#+end_quote
+
+#+hugo: more
+
+** Installation
+Installation was very straight forward, so nothing untoward to mention here.
+** Configuation
+#+begin_quote
+Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems.
+#+end_quote
+Configuration is declared in a single file =/etc/nixos/configuration.nix=
+I've moved mine to my home directory and symlinked it to the default path though, as I wanted to manage my environment with [[https://nixos.wiki/wiki/Home_Manager][Home Manager]].
+*** Package installation
+Packages can now be installed by declaring them as follows:
+#+begin_src nix
+home.packaes = with pkgs; [
+  firefox
+  lazygit
+  librewolf
+]
+#+end_src
+and so on.
+
+After making changes to the config run the following in terminal:
+#+begin_src bash
+nixos-rebuild switch
+#+end_src
+to rebuild the system configuration and create a new [[https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution#Generations][generation]].
