@@ -90,4 +90,27 @@ symfony server:start
       The Web server is using PHP FPM 8.1.24
       http://127.0.0.1:8000
 #+end_src
+*** Bonus - using direnv
+Add a =.envrc= file to project root directory with following content:
+#+begin_src bash
+use nix
+#+end_src
+Install [[https://direnv.net/][direnv]] by adding it to package list in main configuration file; E.g.:
+#+begin_src nix
+with pkgs; [
+    direnv
+]
+#+end_src
+add the following to =programs.zsh= section
+#+begin_src nix
+initExtra = ''
+    eval "$(direnv hook zsh)"
+''
+#+end_src
+rebuild config
+#+begin_src bash
+sudo nixos-rebuild switch
+#+end_src
+Now anytime you =cd= in/out of project dir the environment shell will be loaded and unloaded automatically.
+
 [[https://nixos.wiki/wiki/Development_environment_with_nix-shell][See here]] for more info.

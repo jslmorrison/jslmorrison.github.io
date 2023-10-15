@@ -119,4 +119,37 @@ symfony server:start
       http://127.0.0.1:8000
 ```
 
+
+### Bonus - using direnv {#bonus-using-direnv}
+
+Add a `.envrc` file to project root directory with following content:
+
+```bash
+use nix
+```
+
+Install [direnv](https://direnv.net/) by adding it to package list in main configuration file; E.g.:
+
+```nix
+with pkgs; [
+    direnv
+]
+```
+
+add the following to `programs.zsh` section
+
+```nix
+initExtra = ''
+    eval "$(direnv hook zsh)"
+''
+```
+
+rebuild config
+
+```bash
+sudo nixos-rebuild switch
+```
+
+Now anytime you `cd` in/out of project dir the environment shell will be loaded and unloaded automatically.
+
 [See here](https://nixos.wiki/wiki/Development_environment_with_nix-shell) for more info.
