@@ -150,6 +150,12 @@ rebuild config
 sudo nixos-rebuild switch
 ```
 
+Then from the same directory that contains the `.envrc` file:
+
+```bash
+direnv allow .
+```
+
 Now anytime you `cd` in/out of project dir the environment shell will be loaded and unloaded automatically.
 
 [See here](https://nixos.wiki/wiki/Development_environment_with_nix-shell) for more info.
