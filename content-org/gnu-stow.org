@@ -1,0 +1,34 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* GNU Stow
+:PROPERTIES:
+:EXPORT_FILE_NAME: gnu-stow
+:EXPORT_DATE: 2023-10-29
+:END:
+I use [[https://www.gnu.org/software/stow/][GNU Stow]] in order to have important =.dot= files, usually located in separate directories in the filesystem, version controlled in =git= from a designated repository.
+Easier to use a tool like this than to do it manually.
+
+#+hugo: more
+** Steps required
+- Create a designated ='stow'= directory, e.g. =~/.dotfiles=.
+- Recreate the directory structure for the files you want to manage as subdir(s) of that directory.
+
+  e.g. to have my [[https://github.com/doomemacs/doomemacs][Doom emacs]] config files managed by =stow= and they have been installed to =~/.config/doom/=, i would do the following:
+#+begin_src bash :noeval
+# N.B. directory structure
+mkdir -p ~/.dotfiles/doom/.config/doom
+mv ~/.config/doom ~/.dotfiles/doom/config/
+cd ~/.dotfiles
+# finally, invoke stow
+stow doom
+#+end_src
+
+Now, listing the initial config directory should show a symlink pointing to new location:
+#+begin_src bash :noeval
+ls -al ~/.config
+doom -> ../.dotfiles/doom/.config/doom
+#+end_src
+
+Initialize a git repository in =~/.dotfiles=, commit and push to remote and your done.
