@@ -2,20 +2,20 @@
 #+hugo_section: posts
 #+options: author:nil
 
-* Nixos :@nixos:nixos:
+* NixOS :@nixos:nixos:
 :PROPERTIES:
 :EXPORT_FILE_NAME: nixos
 :EXPORT_DATE: 2023-10-10
 :END:
 
-I've been reading a lot about [[https://nixos.org/][nixos]] lately and wanted to learn more so I'd now using it as my daily driver to hopefully learn more get a better understanding of it.
+I've been reading a lot about [[https://nixos.org/][NixOS]] lately and wanted to learn more so I've took the plunge and now using it as my daily driver. Hopefully I'll learn more and get a better understanding of it by actually using it.
 Not sure if I'll keep it permanently or go back to [[https://fedoraproject.org/silverblue/][Fedora Silverblue]], but nothing ventured nothing gained.
+
 #+begin_quote
 NixOS, a Linux distribution based on the purely functional package management system Nix, that is composed using modules and packages defined in the Nixpkgs project.
 #+end_quote
 
 #+hugo: more
-
 ** Installation
 Graphical installer was very straight forward, so nothing untoward to mention here.
 ** Configuration
@@ -26,8 +26,8 @@ Configuration is declared in a single file =/etc/nixos/configuration.nix=
 I've moved mine to my home directory and symlinked it to the default path though, as I wanted to manage my environment with [[https://nixos.wiki/wiki/Home_Manager][Home Manager]].
 *** Package installation
 Packages can now be installed by declaring them as follows:
-#+begin_src nix
-home.packaes = with pkgs; [
+#+begin_src nix :noeval
+home.packages = with pkgs; [
   firefox
   lazygit
   librewolf
@@ -36,7 +36,12 @@ home.packaes = with pkgs; [
 and so on.
 
 After making changes to the config run the following in terminal:
-#+begin_src bash
+#+begin_src bash :noeval
 nixos-rebuild switch
 #+end_src
 to rebuild the system configuration and create a new [[https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution#Generations][generation]].
+
+The newly added packages are now available and ready to use.
+
+** Goal
+My main goal will be to get the system configured and working to my liking, ultimately to have all development requirements defined per project via [[https://nixos.org/manual/nix/stable/command-ref/nix-shell][nix-shell]]'s or [[https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-develop][nix develop]] if I switch to using [[https://nixos.wiki/wiki/Flakes][flakes]].
