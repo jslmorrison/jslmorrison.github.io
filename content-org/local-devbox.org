@@ -1,0 +1,91 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Local development environments on NixOS :@nixos:nixos:
+:PROPERTIES:
+:EXPORT_FILE_NAME: nixos-local-development
+:EXPORT_DATE: 2023-11-18
+:END:
+After spending some time researching possible solutions for non containerised development environments on [[https://nixos.org/][NixOS]], I have finally settled on [[https://www.jetpack.io/devbox][Devbox]] from [[https://www.jetpack.io/][Jetpack]].
+This enables me to configure required services per project, quickly and easily, on any machine.
+
+#+hugo: more
+#+begin_quote
+Devbox creates isolated, reproducible development environments that run anywhere. No Docker containers or Nix lang required
+#+end_quote
+
+** Installing Devbox
+Use the following install script to get the latest version of Devbox:
+#+begin_src bash :noeval
+curl -fsSL https://get.jetpack.io/devbox | bash
+#+end_src
+Read the [[https://www.jetpack.io/devbox/docs/quickstart/][quickstart docs]] for an overview of what's available. Read on here for configuring a sample [[https://symfony.com/][Symfony]] web project.
+
+** Create a new Symfony project
+- Start a new nix shell with the minimum package requirements
+#+begin_src bash :noeval
+nix-shell -p php82 php82Packages.composer symfony-cli
+#+end_src
+Then from inside the =nix-shell= create a new Symfony project using the =symfony-cli= tool:
+#+begin_src bash :noeval
+symfony new symfony-project
+#+end_src
+
+- Exit the nix-shell and switch into the newly created project directory
+- Init the devbox
+#+begin_src bash :noeval
+devbox init
+#+end_src
+- Add the required devbox services
+#+begin_src bash :noeval
+devbox add caddy curl php82 php82Packages.composer
+#+end_src
+- At this point we can open a =devbox shell= and confirm we have the expected php and composer versions
+#+begin_src bash :noeval
+php -v
+
+PHP 8.2.7 (cli) (built: Jun  6 2023 21:28:56) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.2.7, Copyright (c) Zend Technologies
+    with Zend OPcache v8.2.7, Copyright (c), by Zend Technologies
+
+composer --version
+
+Composer version 2.6.5 2023-10-06 10:11:52
+#+end_src
+
+- Before starting the devbox services, a couple of things need to be changed.
+  Change the port caddy is listening on from =8082= to =8083= to avoid clashing with the php82fpm default port number, change the root to the =public/= directory of the project and add directive to serve php files.
+
+  The caddy config file should now have the following content:
+#+begin_src conf :noeval
+# devbox.d/caddy/Caddyfile
+
+# See https://caddyserver.com/docs/caddyfile for more details
+{
+	admin 0.0.0.0:2020
+	auto_https disable_certs
+	http_port 8800
+	https_port 4443
+}
+
+:8083 {
+	root * {$DEVBOX_PROJECT_ROOT}/public
+    php_fastcgi 127.0.0.1:{$PHPFPM_PORT}
+
+	log {
+		output file {$CADDY_LOG_DIR}/caddy.log
+	}
+	file_server
+}
+#+end_src
+
+You can now start the devbox services:
+#+begin_src bash :noeval
+devbox services up
+#+end_src
+
+The project is now ready and available to browse on [[http://localhost:8083/][http://localhost:8083/]]
+
+Further services, e.g. a database, can be added as required. See the excellent [[https://www.jetpack.io/devbox/docs/][documentation]] for more info.
