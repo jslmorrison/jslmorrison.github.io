@@ -81,6 +81,24 @@ final class GeoLocation implements GeoLocatable
 
 At the database level the value object properties will be in-lined as columns, prefixed with the value object name, in the =property= table. The prefix can be removed by setting the =columnPrefix= attribute to false, as above.
 
+Don't forget to update the =config/packages/doctrine.yaml= config to define the mappings for the embeddable value objects.
+#+begin_src yaml
+orm:
+  mappings:
+    App:
+        type: attribute
+        is_bundle: false
+        dir: '%kernel.project_dir%/src/Entity'
+        prefix: 'App\Entity'
+        alias: App
+    App\ValueObject:
+        type: attribute
+        is_bundle: false
+        dir: '%kernel.project_dir%/src/ValueObject'
+        prefix: 'App\ValueObject'
+        alias: ValueObject
+#+end_src
+
 Their values can be accessed via the entity as follows:
 #+begin_src php :noeval
 /** @var \App\Entity\Property
