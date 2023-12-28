@@ -7,7 +7,7 @@
 :EXPORT_FILE_NAME: terraform-digital-ocean-droplet
 :EXPORT_DATE: 2023-12-28
 :END:
-How to use [[https://www.terraform.io/][Terraform]], an infrastructure as code (IaC) tool, to automate creation and configuration of a [[https://www.digitalocean.com/][Digital Ocean]] droplet.
+How to use [[https://www.terraform.io/][Terraform]], an infrastructure as code (IaC) tool, to automate creation and configuration of a [[https://www.digitalocean.com/][DigitalOcean]] droplet.
 
 #+hugo: more
 #+begin_quote
@@ -36,7 +36,7 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-# a previousy created ssh key added to your DO account
+# a previously created ssh key added to your DO account
 data "digitalocean_ssh_key" "terraform" {
   name = "my-do-key"
 }

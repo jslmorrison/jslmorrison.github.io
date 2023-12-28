@@ -5,7 +5,7 @@ tags = ["terraform", "devops"]
 draft = false
 +++
 
-How to use [Terraform](https://www.terraform.io/), an infrastructure as code (IaC) tool, to automate creation and configuration of a [Digital Ocean](https://www.digitalocean.com/) droplet.
+How to use [Terraform](https://www.terraform.io/), an infrastructure as code (IaC) tool, to automate creation and configuration of a [DigitalOcean](https://www.digitalocean.com/) droplet.
 
 <!--more-->
 
@@ -37,7 +37,7 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-# a previousy created ssh key added to your DO account
+# a previously created ssh key added to your DO account
 data "digitalocean_ssh_key" "terraform" {
   name = "my-do-key"
 }
