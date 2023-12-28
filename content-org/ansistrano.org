@@ -2,7 +2,7 @@
 #+hugo_section: posts
 #+options: author:nil
 
-* Ansistrano :@devops:@ansible:ansible:
+* Ansistrano :@devops:@ansible:ansible:devops:
 :PROPERTIES:
 :EXPORT_FILE_NAME: ansistrano
 :EXPORT_DATE: 2023-05-21

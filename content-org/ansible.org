@@ -2,12 +2,12 @@
 #+hugo_section: posts
 #+options: author:nil
 
-* Ansible :@devops:@ansible:ansible:fedora_silverblue:
+* Ansible :@devops:@ansible:ansible:fedora_silverblue:devops:
 :PROPERTIES:
 :EXPORT_FILE_NAME: ansible
 :EXPORT_DATE: 2023-05-20
 :END:
-Since I have been using Fedora Silverblue full time I have switched away from using [[https://www.docker.com/][Docker]] and [[https://docs.docker.com/compose/][docker-compose]], for container orhestration, to creating [[https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html][ansible playbooks]] to provision local development containers.
+Since I have been using Fedora Silverblue full time I have switched away from using [[https://www.docker.com/][Docker]] and [[https://docs.docker.com/compose/][docker-compose]], for container orchestration, to creating [[https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html][ansible playbooks]] to provision local development containers.
 
 #+hugo: more
 #+begin_quote
@@ -16,7 +16,7 @@ Ansible is an open source, command-line IT automation software application writt
 
 Ansible playbooks are expressed in yaml format and can be used to, but not limited to, orchestrate steps of any manual ordered process, on multiple sets of machines (local or remote), in a defined order. In my case, I have generally been using them to replace tasks defined in =docker-compose= files.
 
-Python is included in the base Silverblue install, but we will need to install =pip3= in order to be able to install required python tools/packages in user filesystem, which is writeable. To install execute the following:
+Python is included in the base Silverblue install, but we will need to install =pip3= in order to be able to install required python tools/packages in user filesystem, which is writable. To install execute the following:
 #+begin_src bash
 python -m ensurepip --user --upgrade --force-reinstall
 #+end_src
@@ -28,7 +28,7 @@ Ansible can now be installed, just run the following in the terminal:
 pip3 install --user ansible
 #+end_src
 
-Here is an example playbook, from the [[https://galaxy.ansible.com/containers/podman][podman container module docs]] of the [[https://galaxy.ansible.com/home][Ansible galaxy]] community that will result in a [[https://redis.com/][Redis]] server intsalled inside a [[https://podman.io/][Podman]] container:
+Here is an example playbook, from the [[https://galaxy.ansible.com/containers/podman][podman container module docs]] of the [[https://galaxy.ansible.com/home][Ansible galaxy]] community that will result in a [[https://redis.com/][Redis]] server installed inside a [[https://podman.io/][Podman]] container:
 #+begin_src yaml
 # example-redis-playbook.yaml
 ---
@@ -46,7 +46,7 @@ Here is an example playbook, from the [[https://galaxy.ansible.com/containers/po
           - 6379
 #+end_src
 
-Run the playbook from within th etermainal as follows:
+Run the playbook from within the terminal as follows:
 #+begin_src bash
 ansible-playbook example-redis-playbook.yaml
 #+end_src

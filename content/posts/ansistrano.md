@@ -1,7 +1,7 @@
 +++
 title = "Ansistrano"
 date = 2023-05-21
-tags = ["ansible"]
+tags = ["ansible", "devops"]
 categories = ["devops", "ansible"]
 draft = false
 +++
