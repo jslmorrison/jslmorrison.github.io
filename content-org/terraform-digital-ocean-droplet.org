@@ -7,7 +7,7 @@
 :EXPORT_FILE_NAME: terraform-digital-ocean-droplet
 :EXPORT_DATE: 2023-12-28
 :END:
-How to use [[https://www.terraform.io/][Terraform]], an infrastructure as code (IaC) tool, to automate creation and configuration of a [[https://www.digitalocean.com/][DigitalOcean]] droplet.
+How to use [[https://www.terraform.io/][Terraform]], an infrastructure as code (IaC) tool, to provision a [[https://www.digitalocean.com/][DigitalOcean]] droplet.
 
 #+hugo: more
 #+begin_quote

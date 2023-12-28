@@ -5,7 +5,7 @@ tags = ["terraform", "devops"]
 draft = false
 +++
 
-How to use [Terraform](https://www.terraform.io/), an infrastructure as code (IaC) tool, to automate creation and configuration of a [DigitalOcean](https://www.digitalocean.com/) droplet.
+How to use [Terraform](https://www.terraform.io/), an infrastructure as code (IaC) tool, to provision a [DigitalOcean](https://www.digitalocean.com/) droplet.
 
 <!--more-->
 
