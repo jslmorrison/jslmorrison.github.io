@@ -1,5 +1,5 @@
 +++
-title = "Automate cloud infrastructure with Terraform"
+title = "Automate infrastructure with Terraform"
 date = 2023-12-28
 tags = ["terraform", "devops"]
 draft = false

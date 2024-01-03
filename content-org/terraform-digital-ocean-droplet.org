@@ -2,7 +2,7 @@
 #+hugo_section: posts
 #+options: author:nil
 
-* Automate cloud infrastructure with Terraform :terraform:devops:
+* Automate infrastructure with Terraform :terraform:devops:
 :PROPERTIES:
 :EXPORT_FILE_NAME: terraform-digital-ocean-droplet
 :EXPORT_DATE: 2023-12-28
