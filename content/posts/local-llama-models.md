@@ -1,5 +1,5 @@
 +++
-title = "Local Llama models"
+title = "Local Ollama models"
 date = 2024-02-11
 draft = false
 +++

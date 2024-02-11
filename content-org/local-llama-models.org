@@ -2,7 +2,7 @@
 #+hugo_section: posts
 #+options: author:nil
 
-* Local Llama models
+* Local Ollama models
 :PROPERTIES:
 :EXPORT_FILE_NAME: local-llama-models
 :EXPORT_DATE: 2024-02-11
