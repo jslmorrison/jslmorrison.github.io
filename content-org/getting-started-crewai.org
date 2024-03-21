@@ -1,0 +1,75 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Getting started with crewAI :@nixos:nixos:ai:
+:PROPERTIES:
+:EXPORT_FILE_NAME: getting-started-crewai
+:EXPORT_DATE: 2024-03-21
+:END:
+A basic outline in getting started with [[https://www.crewai.io/][crewAI]] framework in order to evaluate it further.
+
+#+hugo: more
+What is crewAI and how does it help me? According to their [[https://docs.crewai.com/][documentation website]], crewAI is a:
+#+begin_quote
+Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.
+#+end_quote
+That is probably better explained by an example and some are listed on the site, but I want to try implementing the introductory example.
+
+** Setup
+**** Installing requirements
+I need the following available in a dev env shell:
+- python
+- pip
+I'll create a =flake.nix= file in order to have those available after executing =nix develop= in the terminal:
+#+begin_src nix :noeval
+{
+  description = "A dev env with Python 3 and pip";
+
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          python311Full
+          python3Packages.pip
+        ];
+      };
+    };
+}
+#+end_src
+**** Create a python virtual env
+#+begin_src bash :noeval
+python -m venv .venv
+#+end_src
+**** Activate the virtual env
+#+begin_src bash :noeval
+source .venv/bin/activate
+#+end_src
+Check the path to the python executable:
+#+begin_src
+which python
+/home/john/dev/crewai/.venv/bin/python
+#+end_src
+and I can see it has changed as expected from the previous path within the nix store.
+The required packages can now be installed and I list them in a =requirements.txt= file:
+#+begin_src txt
+crewai
+crewai[tools]
+duckduckgo-search
+langchain-community
+python-dotenv
+#+end_src
+#+begin_src bash :noeval
+pip install -r requirements.txt
+#+end_src
+
+** Assemble the agents
+We can now start writing the python script that will define the agents roles and capabilities and the agent specific tasks.
+
+To be continued...
