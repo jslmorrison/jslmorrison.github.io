@@ -91,9 +91,20 @@ pip install -r requirements.txt
 
 ## Assemble the agents {#assemble-the-agents}
 
-We can now start writing the python script that will define the agents roles and capabilities and the agent specific tasks. Basically I defined 2 agents - a 'researcher' and a 'writer', each with their own specific task. I want them to research usage of crewAI in software development and out the result to a markdown file.
+We can now start writing the python script that will define the agents roles and capabilities and the agent specific tasks. Basically I defined 2 agents - a 'researcher' and a 'writer', each with their own specific task. I want them to research usage of crewAI in software development and output the result to a markdown file.
 
 ```python
+researcher = Agent(
+    role='Senior Research Analyst',
+    goal='Uncover cutting-edge developments in use of AI agents and crewAI specifically in software development',
+    backstory="""You are a Senior Research Analyst at a leading tech think tank.
+        Your expertise lies in identifying emerging trends and technologies in AI and utilising AI agents
+        software development. You have a knack for dissecting complex data and presenting
+        actionable insights.""",
+    verbose=True,
+    allow_delegation=False,
+    tools=[search_tool]
+)
 writer = Agent(
     role='Tech Content Strategist',
     goal='Craft compelling content on tech advancements',
@@ -116,7 +127,6 @@ research_task = Task(
   tools=[search_tool],
   agent=researcher,
 )
-
 write_task = Task(
   description=(
     "Compose an insightful article on {topic}."
