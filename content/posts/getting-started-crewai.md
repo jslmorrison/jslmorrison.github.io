@@ -80,6 +80,7 @@ crewai
 crewai[tools]
 duckduckgo-search
 langchain-community
+onnxruntime
 python-dotenv
 ```
 
@@ -90,6 +91,61 @@ pip install -r requirements.txt
 
 ## Assemble the agents {#assemble-the-agents}
 
-We can now start writing the python script that will define the agents roles and capabilities and the agent specific tasks.
+We can now start writing the python script that will define the agents roles and capabilities and the agent specific tasks. Basically I defined 2 agents - a 'researcher' and a 'writer', each with their own specific task. I want them to research usage of crewAI in software development and out the result to a markdown file.
 
-To be continued...
+```python
+writer = Agent(
+    role='Tech Content Strategist',
+    goal='Craft compelling content on tech advancements',
+    backstory="""You are a renowned Tech Content Strategist, known for your insightful
+    and engaging articles on technology and innovation. With a deep understanding of
+    the tech industry, you transform complex concepts into compelling narratives.""",
+    verbose=True,
+    # (optional) llm=ollama_llm, If you wanna use a local modal through Ollama, default is GPT4 with temperature=0.7
+    allow_delegation=True
+)
+
+research_task = Task(
+  description=(
+    "Identify the next big trend in {topic}."
+    "Focus on identifying pros and cons and the overall narrative."
+    "Your final report should clearly articulate the key points"
+    "its market opportunities, and potential risks."
+  ),
+  expected_output='A comprehensive 3 paragraphs long report on the latest AI trends.',
+  tools=[search_tool],
+  agent=researcher,
+)
+
+write_task = Task(
+  description=(
+    "Compose an insightful article on {topic}."
+    "Focus on the latest trends and how it's impacting the industry."
+    "This article should be easy to understand, engaging, and positive."
+  ),
+  expected_output='A 4 paragraph article on {topic} advancements formatted as markdown.',
+  tools=[search_tool],
+  agent=writer,
+  async_execution=False,
+  output_file='crewai-report.md'  # Example of output customization
+)
+```
+
+[View full source code here.](https://github.com/jslmorrison/crewai-example)
+
+
+## Summary {#summary}
+
+This is just scratching the surface of the capabilities of the crewAI framework. Its relatively easy to get started and fun to work with. I would recommend it to others and I hope to use it more in future on more advanced tasks.
+
+Finally, this was the result of the agents hard work:
+
+> CrewAI: Transforming Software Development
+>
+> CrewAI, an open-source framework for orchestrating role-playing and autonomous AI agents, is revolutionizing the software development industry. By allowing engineers to assemble AI agents into cohesive, high-performing teams, it streamlines processes across multiple sectors. This innovative tool mirrors the dynamics of a real-world crew; AI agents assume roles, delegate tasks, and share goals, creating an ecosystem of efficiency and collaboration. The practical applications are limitless: imagine a 'Bug Tester' agent working harmoniously with a 'Code Reviewer' agent to enhance software quality.
+>
+> As CrewAI continues to evolve, we can expect more advanced features like hierarchical and consensual task processes, further enhancing the framework's utility. The diverse customization options for AI agents and task management have made CrewAI an efficient tool for both engineers and creatives. This versatility has contributed to its rising reputation as an effective solution for complex problems in the industry.
+>
+> However, the adoption of CrewAI is not without challenges. The learning curve can be steep, particularly for those new to AI-driven content creation or digital marketing analytics. Users need to invest significantly in training and upskilling to fully harness the capabilities of CrewAI. Cost considerations also factor in, with the pricing of CrewAI's services varying based on usage and feature requirements.
+>
+> Despite these challenges, the potential of CrewAI is undeniable. It presents an exciting opportunity for enhanced collaboration and efficiency in the software development industry. As with any technology, users must navigate the challenges to fully realize its potential. Through this balance, we can anticipate the pace and scale of CrewAI's adoption in the software development industry, transforming it for the better.
