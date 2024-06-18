@@ -50,7 +50,7 @@ To begin, create `flake.nix` file with the following content:
 }
 ```
 
-then enter the development shell and create new virtual env:
+then enter the development shell:
 
 ```bash
 nix develop
@@ -85,9 +85,10 @@ We are now ready to start writing tests with Python. Create a new test file with
 import re
 from playwright.sync_api import Page, expect
 
-page.goto("https://google.co.uk/about")
-# Expect a title "to contain" a substring.
-expect(page).to_have_title(re.compile("About Google"))
+def test_has_title(page: Page):
+    page.goto("https://google.co.uk/about")
+    # Expect a title "to contain" a substring.
+    expect(page).to_have_title(re.compile("About Google"))
 ```
 
 
