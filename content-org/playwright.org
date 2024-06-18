@@ -1,0 +1,95 @@
+#+hugo_base_dir: ~/development/web/jslmorrison.github.io
+#+hugo_section: posts
+#+options: author:nil
+
+* Automated testing with Playwright :nixos:testing:playwright:
+:PROPERTIES:
+:EXPORT_FILE_NAME: playwright
+:EXPORT_DATE: 2024-06-18
+:END:
+[[https://playwright.dev/python/][Playwright]] enables reliable end-to-end testing for modern web apps - any browser, any platform, one API.
+
+Read on to get it installed and running on nixos.
+#+hugo: more
+
+** Installation
+#+begin_quote
+Playwright was created specifically to accommodate the needs of end-to-end testing. Playwright supports all modern rendering engines including Chromium, WebKit, and Firefox.
+
+The Playwright library can be used as a general purpose browser automation tool, providing a powerful set of APIs to automate web applications, for both sync and async Python.
+#+end_quote
+
+To begin, create =flake.nix= file with the following content:
+#+begin_src nix :noeval :no-expand
+{
+  description = "A dev shell for running playwright e2e tests";
+
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+  outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          playwright-driver
+          python312Full
+          python312Packages.playwright
+          python312Packages.pip
+          python312Packages.pytest
+        ];
+
+        shellHook = ''
+            export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}
+            export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
+        '';
+      };
+    };
+}
+#+end_src
+then enter the development shell and create new virtual env:
+#+begin_src bash :no-expand :noeval
+nix develop
+#+end_src
+and create and activate new virtual env:
+#+begin_src bash :no-expand :noeval
+python -m venv .venv
+source .venv/bin/activate
+#+end_src
+
+Put the pip requirements in a file named =requirements.txt= with the following content:
+#+begin_src text
+pytest-playwright
+#+end_src
+and install requirements with:
+#+begin_src bash :no-expand no-eval
+pip install -r requirements.txt
+#+end_src
+
+** Create test(s)
+We are now ready to start writing tests with Python. Create a new test file with the following content:
+#+begin_src python :no-expand :noeval
+# example_test.py
+import re
+from playwright.sync_api import Page, expect
+
+page.goto("https://google.co.uk/about")
+# Expect a title "to contain" a substring.
+expect(page).to_have_title(re.compile("About Google"))
+#+end_src
+
+** Run test(s)
+From the terminal:
+#+begin_src bash :no-expand :noeval
+pytest --tracing on
+#+end_src
+
+You should see some output in the terminal about the number of tests ran, passed or failed etc. Given that you have passed the =--tracing= flag when running the tests, the traces for the tests can be found in the =test-results/= directory and these can be viewed by running another command in the terminal:
+#+begin_src bash :no-expand :noeval
+playwright show trace test-results/test-example-py-test-has-title-chromium/trace.zip
+#+end_src
+Note how the trace includes the test and the browser as part of the directory structure. =chromium= is the default browser here.
+
+That is a brief overview of getting started with Playwright for e2e testing. It can do so much more. Read more in the [[https://playwright.dev/python/docs/writing-tests][official docs]].
