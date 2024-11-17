@@ -12,7 +12,7 @@ After doing a bit of research on several of the note taking apps available, I de
 
 Having the ability to sync notes between devices is one of the main reasons I wanted to learn more about taking notes using Joplin, which can use more than one sync target, that being either a Joplin server, WebDAV server or Nextcloud instance.
 
-I decided to go with Joplin server installed on a machine in my internal network. These are the steps required to get that up and running, assuming dedicated LXC container already exists and has [Docker](https://www.docker.com/) installed:
+I decided to install [Joplin server](https://joplinapp.org/help/dev/spec/architecture#joplin-server) on a dedicated LXC container in my internal network that has Docker installed already. These are the steps required to get that up and running:
 
 -   Create a `compose.yaml` file with the following default content:
 
