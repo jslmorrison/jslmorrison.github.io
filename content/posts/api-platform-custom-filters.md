@@ -28,7 +28,7 @@ use ApiPlatform\Metadata\ApiResource;
 final class ProductResource
 ```
 
-The custom filters should implement the `\ApiPlatform\Serializer\Filter\FilterInterface`
+The custom filters should implement the `\ApiPlatform\Doctrine\Orm\Filter\FilterInterface`
 
 ```php
 <?php
@@ -38,19 +38,24 @@ declare(strict_types=1);
 namespace App\Filter;
 
 use Symfony\Component\HttpFoundation\Request;
-use ApiPlatform\Serializer\Filter\FilterInterface;
+use ApiPlatform\Doctrine\Orm\Filter\FilterInterface;
 
 final class ProductInStockFilter implements FilterInterface
 {
-    // This function adds the filter context, available in the api resource providers
-    public function apply(Request $request, bool $normalization, array $attributes, array &$context): void
-    {
-        $productInStock = $request->query->get('product_in_stock');
-        if (!$productInStock) {
+    public function apply(
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        Operation $operation = null,
+        array $context = [],
+    ): void {
+        if (!isset($context['filters']['product_in_stock'])) {
             return;
         }
 
-        $context['product_in_stock'] = $productInStock;
+        if ($context['filters']['product_in_stock'] === 'true') {
+            $queryBuilder->andWhere('o.inStock > 1');
+        }
     }
 
     // This function is only used to hook in documentation generators (supported by Swagger and Hydra)
@@ -58,8 +63,8 @@ final class ProductInStockFilter implements FilterInterface
     {
         return [
             'product_in_stock' => [
-                'property' => null,
-                'type' => 'string',
+                'property' => 'inStock',
+                'type' => 'bool',
                 'required' => false,
             ],
         ];
@@ -67,20 +72,5 @@ final class ProductInStockFilter implements FilterInterface
 }
 ```
 
-The provider defined for the `ProductResource` class will now have access to the filters within the `$context` argument of the `provide` method and these can be used when filtering the collection, in your repository for example:
-
-```php
-public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
-{
-    if ($operation instanceof CollectionOperationInterface) {
-        // e.g. $context['filters']['product_in_stock'] = 1
-        if (isset($context['filters'])) {
-            $collection = $this->productRepository->filterBy($context['filters']);
-        } else {
-            $collection = $this->productRepository->findAll();
-        }
-        // transform your collection to your api resource and return
-        return $collection;
-    }
-}
-```
+If utilising the default collection provider in your custom provider class then the query will be automatically altered to include the additional `andWhere` clause.
+Alternatively you can conditionally add the logic to your database lookup (repository method) to apply in your provider.
