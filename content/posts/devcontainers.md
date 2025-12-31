@@ -82,6 +82,17 @@ When you have finished editing the `devcontainer.json` file you can reopen the p
 -   Your project will now run inside the container, ensuring a consistent environment.
 
 
+## Podman
+If using `podman` instead of `docker`, this will all still work as expected with a few modifications.
+- Open the vscode settings and look for the `dev.containers.dockerPath` and change the value to the path for the podman exectuable.
+- Additionally, if host OS is Fedora Silverblue and VSCode is installed via flatpak then set the value for above setting to a custom script with following content:
+    ```bash
+    #!/bin/bash
+    export XDG_RUNTIME_DIR=/run/user/$(id -u)
+    exec flatpak-spawn --host --env=XDG_RUNTIME_DIR=/run/user/$(id -u) podman "$@"
+    ```
+    and make it executable.This will make podman from the host accessible inside the flatpak.
+
 ## Advantages {#advantages}
 
 In summary, the advantages of using dev containers are:
