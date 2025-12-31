@@ -1,9 +1,9 @@
 baseURL = 'https://jslmorrison.github.io/'
 languageCode = 'en-gb'
 title = 'Personal tech notes'
-paginate = 5
-theme = 'terminal'
+theme = "terminal"
 googleAnalytics='G-GMFEY7M980'
+pagination.pagerSize = 5
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -24,6 +24,15 @@ googleAnalytics='G-GMFEY7M980'
 
   # center theme with default width
   centerTheme = true
+
+  # UI text strings
+  readMore = "Read more"
+  readOtherPosts = "Read other posts"
+  newerPosts = "Newer posts"
+  olderPosts = "Older posts"
+  missingContentMessage = "Page not found..."
+  missingBackButtonLabel = "Back to home page"
+  menuMore = "Show more"
 
   # if your resource directory contains an image called `cover.(jpg|png|webp)`,
   # then the file will be used as a cover automatically.
@@ -70,13 +79,6 @@ googleAnalytics='G-GMFEY7M980'
     owner = ""
     keywords = ""
     copyright = ""
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
 
     [languages.en.params.logo]
       logoText = "Dev notes"
@@ -97,6 +99,6 @@ googleAnalytics='G-GMFEY7M980'
   # uncomment the line below (and correct the local path if necessary).
   # --
   # replacements = "github.com/panr/hugo-theme-terminal -> themes/terminal"
-[[module.imports]]
+# [[module.imports]]
   # path = 'github.com/panr/hugo-theme-terminal'
 

@@ -1,0 +1,4 @@
+/* Site-level override to apply the blue theme accent without editing the theme */
+:root {
+  --accent: #61afef;
+}
