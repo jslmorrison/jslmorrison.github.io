@@ -68,7 +68,7 @@ PublishPort=80:80
 PublishPort=443:443
 PublishPort=8080:8080
 Mount=type=bind,src=/path/to/traefik-proxy/config/static.yml,destination=/etc/traefik/traefik.yml,Z
-Mount=type=bind,src=//path/to/traefik-proxy/config/dynamic,destination=/etc/traefik/dynamic,Z
+Mount=type=bind,src=/path/to/traefik-proxy/config/dynamic,destination=/etc/traefik/dynamic,Z
 
 [Service]
 Restart=always
