@@ -1,6 +1,6 @@
 +++
 title = "Using Toolbx on Fedora Silverblue"
-date = 2026-08-27
+date = 2026-08-26
 tags = ["fedora-silverblue"]
 categories = ["linux", "fedora"]
 draft = false
