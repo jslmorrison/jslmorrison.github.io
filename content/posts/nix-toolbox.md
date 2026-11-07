@@ -1,12 +1,12 @@
 +++
-title = "Nix package manager Toolbox"
+title = "Nix package manager Toolbx"
 date = 2026-11-07
 tags = ["fedora-silverblue", "nix"]
 categories = ["linux", "fedora"]
 draft = false
 +++
 
-As an alternative to maintaining multiple Toolbx containers for each command-line tool, you can use one Toolbx and install and manage your packages with Nix. This approach keeps your tools off the Fedora Silverblue host while letting Nix handle package installation and updates in a single Toolbox container.
+As an alternative to maintaining multiple Toolbx containers for each command-line tool, you can use one Toolbx and install and manage your packages with Nix. This approach keeps your tools off the Fedora Silverblue host while letting Nix handle package installation and updates in a single Toolbx container.
 
 <!--more--> 
 
@@ -30,12 +30,12 @@ That's it, couldn't be easier.
 
 Examples of using it:
 ```bash
-toolbox run -c nix nix run #nixpkgs#lazygit
-toolbox run -c nix nix run #nixpkgs#neovim
+toolbox run -c nix nix run nixpkgs#lazygit
+toolbox run -c nix nix run nixpkgs#neovim
 ```
 
 or add an alias in your `.zshrc`
 
-`alias nvim="toolbox run -c nix nix run neovim"`
+`alias nvim="toolbox run -c nix nix run nixpkgs#neovim"`
 
 This setup combines the best of both worlds: Silverblue's clean, immutable host combined with Nix package management makes command-line tools easy to install and update in one place.
